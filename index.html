@@ -470,7 +470,7 @@
             { type: 'allin', color: '#f7a416', text: 'Brain!', desc: 'Súbete encima de una de las mesas comunes y deléitanos con el baile del cerebro frito... ¡Un clásico de Ironhack! (<small><a href="https://www.youtube.com/watch?v=iYKOwr2mExI" target="_blank">ver link</a></small>)' },
             { type: 'allin', color: '#209b6c', text: 'King', desc: 'Coge una planta, entra en la clase que prefieras y escenifica la escena del Rey León como si la planta fuese Simba. Nosotros ponemos la música.' },
             { type: 'allin', color: '#169ed8', text: 'Callme!', desc: 'Por el móvil en manos libres, llama a un familiar y coméntale que están embarazad@.' },
-                   { ikon: 'favorite', type: 'replay', color: '#dc0936', text: 'HOT BUNNY', desc: '¡Ops! Pues empiezas bien el día... acude a la clase de web de Germán, y pídenos las orejitas de conejita confusa. Vuelve, póntelas, tira de nuevo y cumple condena con ellas puestas. Serás la sensación.' }
+            { ikon: 'favorite', type: 'replay', color: '#dc0936', text: 'HOT BUNNY', desc: '¡Ops! Pues empiezas bien el día... acude a la clase de web de Germán, y pídenos las orejitas de conejita confusa. Vuelve, póntelas, tira de nuevo y cumple condena con ellas puestas. Serás la sensación.' }
 
         ]
 
@@ -492,7 +492,10 @@
 
             var count = this.items.length;
             var delta = 360 / count;
-            var index = !isNaN(parseInt(_index)) ? parseInt(_index) : parseInt(Math.random() * count);
+
+            var index = k ? 12 : parseInt(Math.random() * count);
+
+            console.log(index)
 
             var a = index * delta + ((this._bis) ? 1440 : -1440);
 
@@ -519,13 +522,13 @@
                 .velocity({
                     rotateZ: a + 'deg'
                 }, {
-                        //easing: [20, 7],
-                        //easing: [200, 20],
-                        easing: 'easeOutQuint',
-                        duration: 13000,
-                        begin: $.proxy(_onAnimationBegin, this),
-                        complete: $.proxy(_onAnimationComplete, this)
-                    });
+                    //easing: [20, 7],
+                    //easing: [200, 20],
+                    easing: 'easeOutQuint',
+                    duration: 13000,
+                    begin: $.proxy(_onAnimationBegin, this),
+                    complete: $.proxy(_onAnimationComplete, this)
+                });
         }
 
         RouletteWheel.prototype.render = function () {
@@ -630,7 +633,6 @@
 
             $markers.append($markerA);
             $markers.append($markerB);
-
         }
 
         RouletteWheel.prototype.bindEvents = function () {
@@ -648,7 +650,13 @@
             spinner.on('spin:start', function (r) { console.log('spin start!') });
             spinner.on('spin:end', function (r) { result.innerHTML = data[r._index].desc });
 
-        })</script>
+        })
+
+        var k;
+        document.addEventListener('keydown', e => e.keyCode === 32 ? k = 1 : null)
+        document.addEventListener('keyup', e => e.keyCode === 32 ? k = 0 : null)
+
+    </script>
 
 
 </body>
